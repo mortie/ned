@@ -1,13 +1,13 @@
 #ifndef FCONTENT_H
 #define FCONTENT_H
 
-//size_t
+//size_t, NULL
 #include <stddef.h>
 
-//malloc
+//malloc, realloc
 #include <stdlib.h>
 
-//memmove
+//memmove, 
 #include <string.h>
 
 //uintptr_t
@@ -15,14 +15,16 @@
 
 typedef struct fcontent
 {
-	char* text;
+	wchar_t* text;
 	size_t length;
 } fcontent;
 
 fcontent* fcontent_new();
 
-void fcontent_insert(fcontent* fc, size_t index, char c);
+void fcontent_insert(fcontent* fc, size_t index, wchar_t c);
 
-void fcontent_push(fcontent* fc, char c);
+void fcontent_push(fcontent* fc, wchar_t c);
+
+wchar_t fcontent_get(fcontent* fc, size_t index);
 
 #endif

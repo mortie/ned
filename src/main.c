@@ -1,31 +1,30 @@
-#include <ncurses.h>
-#include <fcntl.h>
-#include "fcontent.h"
+#define _GNU_SOURCE
 
-enum command
-{
-	COMMAND_UP,
-	COMMAND_DOWN,
-	COMMAND_LEFT,
-	COMMAND_RIGHT
-} command;
+#include <ncursesw/ncurses.h>
+#include <locale.h>
+#include <fcntl.h>
+#include <wchar.h>
+
+#include "fcontent.h"
+//include "rcparser.h"
 
 int main(int argc, char** argv)
 {
+	setlocale(LC_ALL, "");
 	initscr();
 
 	fcontent* fc = fcontent_new();
 
-	char c;
+	wchar_t c;
 	while ((c = getchar()) != EOF)
 	{
 		fcontent_push(fc, c);
 	}
 
-	printw(fc->text);
+	addwstr(fc->text);
 	refresh();
 
-	while (c = getchar())
+	while ((c = getchar()))
 	{
 		
 	}

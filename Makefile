@@ -1,2 +1,2 @@
 build:
-	gcc -o ned src/*.c -lncurses
+	gcc -Wall -o ned src/*.c -lncursesw
