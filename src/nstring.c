@@ -1,4 +1,4 @@
-#include "string.h"
+#include "nstring.h"
 
 /*
  * string_new

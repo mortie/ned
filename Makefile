@@ -1,2 +1,2 @@
 build:
-	gcc -Wall -o ned src/*.c -lncursesw
+	gcc -Wall -o ned src/*.c -lncursesw -std=c99

@@ -6,7 +6,7 @@
 #include <wchar.h>
 
 #include "rcparser.h"
-#include "string.h"
+#include "nstring.h"
 
 //convert utf 8 to ned_wstring
 static ned_wstring utf8towstring(ned_string utf8str)
@@ -39,7 +39,7 @@ int main(int argc, char** argv)
 	ned_wstring input = utf8towstring(str);
 
 	//print
-	//addwstr();
+	addwstr(ned_wstring_get_all(input));
 	refresh();
 
 	//read user input
