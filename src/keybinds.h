@@ -1,39 +1,48 @@
 #ifndef BINDS_H
 #define BINDS_H
 
-//size_t, NULL
 #include <stddef.h>
-
-//malloc, realloc
 #include <stdlib.h>
 
-typedef enum COMMAND
+typedef enum NED_COMMAND
 {
-	COMMAND_UP,
-	COMMAND_DOWN,
-	COMMAND_LEFT,
-	COMMAND_RIGHT,
-	COMMAND_SAVE
-} COMMAND;
+	NED_COMMAND_UP,
+	NED_COMMAND_DOWN,
+	NED_COMMAND_LEFT,
+	NED_COMMAND_RIGHT,
+	NED_COMMAND_SAVE
+} NED_COMMAND;
 
-typedef struct keybind
+typedef struct ned_keybind
 {
 	wchar_t key;
-	COMMAND command;
-} keybind;
+	NED_COMMAND command;
+} ned_keybind;
 
-typedef struct keybinds
+typedef struct ned_keybinds
 {
-	keybind* binds;
+	ned_keybind* binds;
 	size_t length;
-} keybinds;
+} ned_keybinds;
 
-keybind keybind_new(wchar_t key, COMMAND command);
+/*
+ * ned_keybind_new(key, command) - create a new keybind
+ */
+ned_keybind ned_keybind_new(wchar_t key, NED_COMMAND command);
 
-keybinds* keybinds_new();
+/*
+ * ned_keybinds_new() - create a new keybind collection
+ */
+ned_keybinds* ned_keybinds_new();
 
-void keybinds_push(keybinds* kb, keybind bind);
+/*
+ * ned_keybinds_push(kb, bind) - add a new keybind to keybind collection
+ */
+void ned_keybinds_push(ned_keybinds* kb, ned_keybind bind);
 
-keybind keybinds_get(keybinds* kb, size_t index);
+/*
+ * ned_keybinds_get(kb, index) - get the keybind at an index from a collection
+ */
+ned_keybind ned_keybinds_get(ned_keybinds* kb, size_t index);
 
 #endif

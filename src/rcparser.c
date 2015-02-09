@@ -1,28 +1,28 @@
 #include "rcparser.h"
 
-static void makeKeybind(keybinds* kb, wchar_t key, wchar_t* val)
+static void makeKeybind(ned_keybinds* kb, wchar_t key, wchar_t* val)
 {
 	if (wcscmp(val, L"UP"))
-		keybinds_push(kb, keybind_new(key, COMMAND_UP));
+		ned_keybinds_push(kb, ned_keybind_new(key, NED_COMMAND_UP));
 	else if (wcscmp(val, L"DOWN"))
-		keybinds_push(kb, keybind_new(key, COMMAND_DOWN));
+		ned_keybinds_push(kb, ned_keybind_new(key, NED_COMMAND_DOWN));
 	else if (wcscmp(val, L"LEFT"))
-		keybinds_push(kb, keybind_new(key, COMMAND_LEFT));
+		ned_keybinds_push(kb, ned_keybind_new(key, NED_COMMAND_LEFT));
 	else if (wcscmp(val, L"RIGHT"))
-		keybinds_push(kb, keybind_new(key, COMMAND_RIGHT));
+		ned_keybinds_push(kb, ned_keybind_new(key, NED_COMMAND_RIGHT));
 	else if (wcscmp(val, L"SAVE"))
-		keybinds_push(kb, keybind_new(key, COMMAND_SAVE));
+		ned_keybinds_push(kb, ned_keybind_new(key, NED_COMMAND_SAVE));
 }
 
-keybinds* rcparse(wchar_t* rcstr)
+ned_keybinds* ned_rcparse(wchar_t* rcstr)
 {
-	keybinds* kb = keybinds_new();
+	ned_keybinds* kb = ned_keybinds_new();
 
 	size_t i = 0;
 	wchar_t c = NULL;
 	wchar_t prev = NULL;
 
-	wchar_t key = NULL;
+	wchar_t key = 0;
 	wchar_t* val = NULL;
 	size_t vallen = 0;
 
@@ -34,7 +34,7 @@ keybinds* rcparse(wchar_t* rcstr)
 		{
 			key = prev;
 		}
-		else if (key != NULL && c != L'\n')
+		else if (key != 0 && c != L'\n')
 		{
 			++vallen;
 			val = realloc(val, vallen);
@@ -43,11 +43,11 @@ keybinds* rcparse(wchar_t* rcstr)
 		else if (c == L'\n')
 		{
 			val = realloc(val, vallen+1);
-			val[vallen] = NULL;
+			val[vallen] = 0;
 
-			makeKeybind(kb, val, key);
+			makeKeybind(kb, key, val);
 
-			key = NULL;
+			key = 0;
 			val = NULL;
 			vallen = 0;
 		}

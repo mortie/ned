@@ -1,33 +1,33 @@
 #include "keybinds.h"
 
-keybind* bind_new(wchar_t key, COMMAND command)
+ned_keybind ned_keybind_new(wchar_t key, NED_COMMAND command)
 {
-	keybind* bind = malloc(sizeof(keybind));
+	ned_keybind* bind = malloc(sizeof(ned_keybind));
 	bind->key = key;
 	bind->command = command;
 
-	return bind;
+	return *bind;
 }
 
-keybinds* keybinds_new()
+ned_keybinds* ned_keybinds_new()
 {
-	keybinds* kb = malloc(sizeof(keybinds));
+	ned_keybinds* kb = malloc(sizeof(ned_keybinds));
 	kb->binds = NULL;
 	kb->length = 0;
 
 	return kb;
 }
 
-void keybinds_push(keybinds* kb, keybind bind)
+void ned_keybinds_push(ned_keybinds* kb, ned_keybind bind)
 {
 	kb->length += 1;
 	size_t l = kb->length;
-	kb->binds = realloc(kb->binds, sizeof(keybind) * l);
+	kb->binds = realloc(kb->binds, sizeof(ned_keybind) * l);
 
 	kb->binds[l+1] = bind;
 }
 
-keybind keybinds_get(keybinds* kb, size_t index)
+ned_keybind ned_keybinds_get(ned_keybinds* kb, size_t index)
 {
 	return kb->binds[index];
 }
