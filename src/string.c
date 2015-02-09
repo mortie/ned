@@ -87,5 +87,4 @@ void* ned_generic_string_get_all(ned_generic_string str)
 void ned_generic_string_free(ned_generic_string str)
 {
 	free(str.text);
-	free(str);
 }
