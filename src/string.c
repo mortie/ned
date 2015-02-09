@@ -7,10 +7,10 @@
 ned_generic_string ned_generic_string_new(size_t width)
 {
 	ned_generic_string str;
-	str.text = malloc(width * 10);;
+	str.text = NULL;
 	str.length = 0;
 	str.width = width;
-	str.allocd = 10;
+	str.allocd = 0;
 
 	return str;
 }
@@ -33,9 +33,11 @@ ned_wstring ned_wstring_new()
 
 void ned_generic_string_set(ned_generic_string str, void* chars, size_t count)
 {
-	str.text = chars;
+	free(str.text);
+
+	str.text = memcpy(str.text, chars, count * str.width);
 	str.length = count;
-	str.allocd = count+1;
+	str.allocd = count;
 }
 
 void ned_string_set(ned_string str, char* chars, size_t count)
@@ -59,7 +61,10 @@ void ned_generic_string_insert(ned_generic_string str, void* c, size_t index)
 	//realloc if needed
 	if (str.length >= str.allocd)
 	{
-		str.allocd *= 2;
+		if (str.allocd == 0)
+			str.allocd = 1;
+		else
+			str.allocd *= 2;
 		str.text = realloc(str.text, str.width * str.allocd);
 	}
 
@@ -137,4 +142,23 @@ wchar_t* ned_wstring_get_all(ned_wstring str)
 {
 	wchar_t* chars = (wchar_t*)ned_generic_string_get_all((ned_generic_string)str);
 	return chars;
+}
+
+/*
+ * string_free
+ */
+void ned_generic_string_free(ned_generic_string str)
+{
+	free(str.text);
+	free(str);
+}
+
+void ned_string_free(ned_string str)
+{
+	ned_generic_string_free((ned_generic_string)str);
+}
+
+void ned_wstring_free(ned_wstring str)
+{
+	ned_generic_string_free((ned_generic_string)str);
 }

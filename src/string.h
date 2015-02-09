@@ -59,4 +59,11 @@ void* ned_generic_string_get_all(ned_generic_string str);
 char* ned_string_get_all(ned_string str);
 wchar_t* ned_wstring_get_all(ned_wstring str);
 
+/*
+ * ned_(w)string_free(str) - free the memory allocated by the string
+ */
+void ned_generic_string_free(ned_generic_string str);
+void ned_string_free(ned_string str);
+void ned_wstring_free(ned_wstring str);
+
 #endif
