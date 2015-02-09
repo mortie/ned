@@ -10,6 +10,7 @@
 /*
  * rcparse(rcstr) - parse configuration string
  */
+
 ned_keybinds* rcparse(wchar_t* rcstr);
 
 #endif

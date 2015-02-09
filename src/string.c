@@ -21,8 +21,7 @@ ned_generic_string ned_generic_string_new(size_t width)
 
 void ned_generic_string_set(ned_generic_string str, void* chars, size_t count)
 {
-	free(str.text);
-
+	str.text = realloc(str.text, count * str.width);
 	str.text = memcpy(str.text, chars, count * str.width);
 	str.length = count;
 	str.allocd = count;
@@ -55,6 +54,7 @@ void ned_generic_string_insert(ned_generic_string str, void* c, size_t index)
 /*
  * string_push
  */
+
 void ned_generic_string_push(ned_generic_string str, void* c)
 {
 	ned_generic_string_insert(str, c, str.length - 1);
@@ -63,6 +63,7 @@ void ned_generic_string_push(ned_generic_string str, void* c)
 /*
  * string_get
  */
+
 void* ned_generic_string_get(ned_generic_string str, size_t index)
 {
 	uintptr_t indexPtr = (uintptr_t)str.text + (str.width * index);
@@ -73,6 +74,7 @@ void* ned_generic_string_get(ned_generic_string str, size_t index)
 /*
  * string_get_all
  */
+
 void* ned_generic_string_get_all(ned_generic_string str)
 {
 	return str.text;
@@ -81,6 +83,7 @@ void* ned_generic_string_get_all(ned_generic_string str)
 /*
  * string_free
  */
+
 void ned_generic_string_free(ned_generic_string str)
 {
 	free(str.text);
